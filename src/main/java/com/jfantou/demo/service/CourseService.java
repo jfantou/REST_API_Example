@@ -2,37 +2,38 @@ package com.jfantou.demo.service;
 
 import com.jfantou.demo.exception.CourseNotFoundException;
 import com.jfantou.demo.model.Course;
+import com.jfantou.demo.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CourseService {
 
-    private List<Course> listCourse = new ArrayList<>();
-    private static int courseCount = 0;
+    private CourseRepository courseRepository;
+
+    public CourseService(CourseRepository courseRepository){
+        this.courseRepository = courseRepository;
+    }
 
     public List<Course> getAll(){
-        return listCourse;
+        return courseRepository.findAll();
     }
 
     public Course saveCourse(Course course){
-        course.setId(courseCount++);
-        listCourse.add(course);
-        return course;
+        Course courseSave = courseRepository.save(course);
+        return courseSave;
     }
 
     public Course getById(int id){
-        Optional<Course> course = listCourse.stream().filter( cours -> cours.getId().equals(id)).findFirst();
+        Optional<Course> course = courseRepository.findById(id);
         if(!course.isPresent())
             throw new CourseNotFoundException(String.valueOf(id));
         return course.get();
     }
 
     public void deleteById(int id){
-        listCourse.removeIf(cours -> cours.getId().equals(id));
+        courseRepository.deleteById(id);
     }
 }

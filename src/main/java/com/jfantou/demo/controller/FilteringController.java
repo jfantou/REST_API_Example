@@ -1,8 +1,5 @@
 package com.jfantou.demo.controller;
 
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.jfantou.demo.model.SomeBean;
 import com.jfantou.demo.utils.FilterSomeBean;
 import org.springframework.http.converter.json.MappingJacksonValue;

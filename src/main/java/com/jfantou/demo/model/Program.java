@@ -7,17 +7,18 @@ import lombok.*;
 
 import java.util.Set;
 
+@Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Entity(name="course_details")
-public class Course {
+@Table(name="program_details")
+public class Program {
 
     @Id
     @GeneratedValue
-    @Column(name="course_id")
+    @Column(name="program_id")
     private Integer id;
 
     @Size(min=2, message="name should be superiror at 2 letters")
@@ -28,7 +29,7 @@ public class Course {
 
     private String type;
 
-    @ManyToMany(mappedBy = "courses")
-    private Set<Program> programs;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Course> courses;
 
 }
