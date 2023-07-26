@@ -17,6 +17,7 @@ import java.util.List;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@RestController
 public class UserController {
     private UserService userService;
 
@@ -48,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("/users/{id}/posts")
-    public ResponseEntity<Object> createPostForUser(@PathVariable(name="id") int id, @RequestBody Post post){
+    public ResponseEntity<Object> createPostForUser(@PathVariable(name="id") int id, @Valid @RequestBody Post post){
         User user = userService.getById(id);
         post.setUser(user);
         Post savedPost = postRepository.save(post);
